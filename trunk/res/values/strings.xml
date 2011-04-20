@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">Permissions</string>
+
+	<!-- Alerts -->
+	<string name="working">Working...</string>
+	<string name="loadingPackages">Loading packages whose permissions we can change...</string>
+	<string name="loadingPackages2">Loading packages that offer permissions that we can change...</string>
+	<string name="loadingPermissions">Loading all permissions...</string>
+	<string name="changingPermission">Changing Permission...</string>
+</resources>

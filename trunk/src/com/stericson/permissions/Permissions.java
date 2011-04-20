@@ -83,6 +83,8 @@ public class Permissions extends ListActivity {
 	
 	private void about() {
 		final SpannableString s = new SpannableString("This app was designed and created by Stericson. \n\n" +
+				"This app is fully open sourced, you can find the source for it at: \n\n" +
+				"http://code.google.com/p/android-permissions/ \n\n" +
 				"The concept came about when a community member pointed me to another app that does the exact same thing. This app is called Permission Blocker and was created by Fr4gg0r. I started the app to see if I could improve on it a bit and found I couldn't really. I will continue working on this though, as I have and idea on how to tackle this in a different manner. \n\n " +
 				"If you would like to keep up on what I am doing or working on follow me on Twitter: \n\n http://www.Twitter.com/Stericson \n\n" +
 				"If you would like to email me, feel free to do so at StericDroid@gmail.com");

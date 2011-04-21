@@ -13,7 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,8 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.stericson.RootTools.RootTools;
 
 public class SharedPermissions extends ListActivity {
 	
@@ -166,4 +164,11 @@ public class SharedPermissions extends ListActivity {
 		}
 		
 	}
+	
+    @Override 
+    public void onConfigurationChanged(Configuration newConfig) { 
+    super.onConfigurationChanged(newConfig); 
+    // We do nothing here. We're only handling this to keep orientation 
+    // or keyboard hiding from causing the WebView activity to restart. 
+    }
 }

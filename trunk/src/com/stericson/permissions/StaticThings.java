@@ -1,5 +1,6 @@
 package com.stericson.permissions;
 
+import java.io.File;
 import java.util.Set;
 
 import android.app.ProgressDialog;
@@ -26,5 +27,14 @@ public class StaticThings {
 			patience.dismiss();
 			patienceShowing = false;
 		}
+	}
+	
+	public static String path() {
+		if (new File("/data/system/packages.xml").exists()) {
+			return "/data/system/packages.xml";
+		} else if(new File("/dbdata/system/packages.xml").exists()) {
+			return "/dbdata/system/packages.xml";
+		}
+		return null;
 	}
 }

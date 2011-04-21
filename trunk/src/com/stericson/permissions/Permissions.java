@@ -1,22 +1,23 @@
 package com.stericson.permissions;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.RootToolsException;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -26,6 +27,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -40,6 +42,7 @@ public class Permissions extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.package_list);
         
         buildList();
@@ -58,6 +61,7 @@ public class Permissions extends ListActivity {
 	/* Creates the menu items */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("About");
+		menu.add("Reboot");
 		//Sadly this does not work, it just comes right back.
 		//menu.add("Disable Google Service Framework Permissions");
 		//menu.add("Manage Shared Permissions");
@@ -73,6 +77,9 @@ public class Permissions extends ListActivity {
 		if (item.getTitle().equals("About")) {
 			about();
 		}
+		if (item.getTitle().equals("Reboot")) {
+			Reboot();
+		}
 		//if (item.getTitle().equals("Disable Google Service Framework Permissions")) {
 		//	Intent i = new Intent(this, MasterPermissions.class);
 		//	this.startActivity(i);
@@ -82,12 +89,12 @@ public class Permissions extends ListActivity {
 	}
 	
 	private void about() {
-		final SpannableString s = new SpannableString("This app was designed and created by Stericson. \n\n" +
+		final SpannableString s = new SpannableString(
 				"This app is fully open sourced, you can find the source for it at: \n\n" +
 				"http://code.google.com/p/android-permissions/ \n\n" +
-				"The concept came about when a community member pointed me to another app that does the exact same thing. This app is called Permission Blocker and was created by Fr4gg0r. I started the app to see if I could improve on it a bit and found I couldn't really. I will continue working on this though, as I have and idea on how to tackle this in a different manner. \n\n " +
-				"If you would like to keep up on what I am doing or working on follow me on Twitter: \n\n http://www.Twitter.com/Stericson \n\n" +
-				"If you would like to email me, feel free to do so at StericDroid@gmail.com");
+				"The original concept for this app came about by another app called Permission Blocker which was created by Fr4gg0r. \n\n I started the app to see if I could improve on it a bit and to just tinker with the permissions. \n\n" +
+				"Twitter: \n\n http://www.Twitter.com/Stericson \n\n" +
+				"Email: \n\n StericDroid@gmail.com");
 		Linkify.addLinks(s, Linkify.ALL);
 		new AlertDialog.Builder(Permissions.this).setCancelable(false)
 		.setTitle("" +
@@ -95,7 +102,34 @@ public class Permissions extends ListActivity {
 		.setPositiveButton("Ok", null)
 		.show();
 	}
+	
+	private void Reboot() {
+		new AlertDialog.Builder(Permissions.this).setCancelable(false)
+		.setTitle("You sure?").setMessage("Are you sure you want to reboot?")
+		.setPositiveButton("Yes", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				try {
+					RootTools.sendShell("reboot");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RootToolsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).setNegativeButton("No", null)
+		.show();
+	}
+	
     private void showList() {
+    	//Organize the list
+    	java.util.Collections.sort(list, new Sorter());
+    	
     	setListAdapter(new PackageAdapter(this,
 				R.layout.packages_row, list));
     	StaticThings.patience();
@@ -167,54 +201,52 @@ public class Permissions extends ListActivity {
 
 		@Override
 		protected String doInBackground(Void... params) {
-			PackageManager pm = getPackageManager();
-	    	for (PackageInfo info : pm.getInstalledPackages(0)) {
-	    		//Only show those packages that are requesting permissions.
-	    		try {
-					if (pm.getPackageInfo(info.packageName, pm.GET_PERMISSIONS).requestedPermissions != null) {
+			
+			try {
+				List<String> tmpList = new ArrayList<String>();
+				
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+				XmlPullParser xpp = factory.newPullParser();
+				
+				xpp.setInput(new FileReader(StaticThings.path()));
+				int eventType = xpp.getEventType();
+				
+				while(eventType != XmlPullParser.END_DOCUMENT) {
+					if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("package")) {
 						
-						XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
-						factory.setNamespaceAware(true);
-						XmlPullParser xpp = factory.newPullParser();
+						String packageName = xpp.getAttributeValue(0);
 						
-						xpp.setInput(new FileReader("/data/system/packages.xml"));
-						int eventType = xpp.getEventType();
-						
-						while(eventType != XmlPullParser.END_DOCUMENT) {
-							if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("package")) {
-								if (xpp.getAttributeValue(0).contains(info.packageName)) {
-									while (eventType != XmlPullParser.END_DOCUMENT ) {
-										if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("package")) {
-											break;
-										}
-										if (xpp.getEventType() == XmlPullParser.START_TAG) {
-											if (xpp.getName().contains("perms")) {
-												//There are permissions that we can change.
-												list.add(new Packages(info.applicationInfo.loadLabel(getPackageManager()).toString(), info.packageName, info.applicationInfo.loadIcon(getPackageManager())));
-												break;
-											}
-										}
-										eventType = xpp.next();
-									}
+						while (eventType != XmlPullParser.END_DOCUMENT ) {
+							if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("package")) {
+								break;
+							}
+							if (xpp.getEventType() == XmlPullParser.START_TAG) {
+								if (xpp.getName().contains("perms")) {
+									//There are permissions that we can change.
+									tmpList.add(packageName);
+									break;
 								}
 							}
-
 							eventType = xpp.next();
 						}
 					}
-				} catch (NameNotFoundException e) {
-					e.printStackTrace();
-				} catch (XmlPullParserException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					eventType = xpp.next();
 				}
-	    	}
+				
+				PackageManager pm = getPackageManager();
+		    	for (PackageInfo info : pm.getInstalledPackages(0)) {
+		    		//Only show those packages that are requesting permissions.
+					if (pm.getPackageInfo(info.packageName, pm.GET_PERMISSIONS).requestedPermissions != null) {
+						if (tmpList.contains(info.packageName)) {
+							list.add(new Packages(info.applicationInfo.loadLabel(getPackageManager()).toString(), info.packageName, info.applicationInfo.loadIcon(getPackageManager())));
+						}
+					}
+		    	}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 			return "done";
 		}
 		
@@ -223,4 +255,11 @@ public class Permissions extends ListActivity {
 		}
 		
 	}
+	
+    @Override 
+    public void onConfigurationChanged(Configuration newConfig) { 
+    super.onConfigurationChanged(newConfig); 
+    // We do nothing here. We're only handling this to keep orientation 
+    // or keyboard hiding from causing the WebView activity to restart. 
+    }
 }

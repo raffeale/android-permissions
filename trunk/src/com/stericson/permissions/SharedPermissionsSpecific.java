@@ -7,9 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -30,6 +32,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.stericson.RootTools.RootTools;
 
 public class SharedPermissionsSpecific extends ListActivity {

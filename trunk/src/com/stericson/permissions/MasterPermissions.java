@@ -7,10 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-import com.stericson.RootTools.RootTools;
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -18,6 +19,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,6 +33,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.stericson.RootTools.RootTools;
 
 public class MasterPermissions extends ListActivity {
 	
@@ -339,4 +343,11 @@ public class MasterPermissions extends ListActivity {
 			}
 		}
 	}
+	
+    @Override 
+    public void onConfigurationChanged(Configuration newConfig) { 
+    super.onConfigurationChanged(newConfig); 
+    // We do nothing here. We're only handling this to keep orientation 
+    // or keyboard hiding from causing the WebView activity to restart. 
+    }
 }

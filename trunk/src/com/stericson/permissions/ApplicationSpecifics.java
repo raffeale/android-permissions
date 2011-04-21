@@ -6,30 +6,33 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.stericson.RootTools.RootTools;
-
+import com.stericson.RootTools.RootToolsException;
 public class ApplicationSpecifics extends ListActivity {
 
 	private ImageView icon;
@@ -43,6 +46,7 @@ public class ApplicationSpecifics extends ListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.application_permissions);
     
         icon = (ImageView) this.findViewById(R.id.icon);
@@ -80,6 +84,42 @@ public class ApplicationSpecifics extends ListActivity {
 		}
     }
  
+	/* Creates the menu items */
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Reboot");
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getTitle().equals("Reboot")) {
+			Reboot();
+		}
+		return true;
+	}
+	
+	private void Reboot() {
+		new AlertDialog.Builder(ApplicationSpecifics.this).setCancelable(false)
+		.setTitle("You sure?").setMessage("Are you sure you want to reboot?")
+		.setPositiveButton("Yes", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				try {
+					RootTools.sendShell("reboot");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RootToolsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).setNegativeButton("No", null)
+		.show();
+	}
+	
 	//user clicked something
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -208,8 +248,8 @@ public class ApplicationSpecifics extends ListActivity {
 		protected Integer doInBackground(String... permission) {
 			PackageManager pm = getPackageManager();
 			try {
-				RootTools.sendShell("dd if=/data/system/packages.xml of=/data/local/packages1.xml");
-				RootTools.sendShell("dd if=/data/system/packages.xml of=/data/local/packages.xml");
+				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages1.xml");
+				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages.xml");
 				RootTools.sendShell("chmod 0777 /data/local/packages1.xml");
 				RootTools.sendShell("chmod 0777 /data/local/packages.xml");
 			} catch (Exception e) {
@@ -256,7 +296,7 @@ public class ApplicationSpecifics extends ListActivity {
 				}
 				
 				try {
-					RootTools.sendShell("dd if=/data/local/packages.xml of=/data/system/packages.xml");
+					RootTools.sendShell("dd if=/data/local/packages.xml of=" + StaticThings.path());
 					//Dont be messy, clean up!
 					RootTools.sendShell("rm /data/local/packages1.xml");
 					RootTools.sendShell("rm /data/local/packages.xml");
@@ -282,4 +322,11 @@ public class ApplicationSpecifics extends ListActivity {
 			}
 		}
 	}
+	
+    @Override 
+    public void onConfigurationChanged(Configuration newConfig) { 
+    super.onConfigurationChanged(newConfig); 
+    // We do nothing here. We're only handling this to keep orientation 
+    // or keyboard hiding from causing the WebView activity to restart. 
+    }
 }

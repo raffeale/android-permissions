@@ -62,29 +62,21 @@ public class Permissions extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("About");
 		menu.add("Reboot");
-		//Sadly this does not work, it just comes right back.
-		//menu.add("Disable Google Service Framework Permissions");
-		//menu.add("Manage Shared Permissions");
+		menu.add("Advanced Options");
 		return true;
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
-
-		//if (item.getTitle().equals("Manage Shared Permissions")) {
-		//	Intent i = new Intent(this, SharedPermissions.class);
-		//	this.startActivity(i);
-		//}
 		if (item.getTitle().equals("About")) {
 			about();
 		}
 		if (item.getTitle().equals("Reboot")) {
 			Reboot();
 		}
-		//if (item.getTitle().equals("Disable Google Service Framework Permissions")) {
-		//	Intent i = new Intent(this, MasterPermissions.class);
-		//	this.startActivity(i);
-		//}
-		// consume the event
+		if (item.getTitle().equals("Advanced Options")) {
+			Intent i = new Intent(this, Advanced.class);
+			this.startActivity(i);
+		}
 		return true;
 	}
 	
@@ -174,7 +166,11 @@ public class Permissions extends ListActivity {
 				
 				TextView appName = (TextView) v.findViewById(R.id.appname);
 				TextView packageName = (TextView) v.findViewById(R.id.packagename);
+				TextView found = (TextView) v.findViewById(R.id.found);
+				TextView active = (TextView) v.findViewById(R.id.active2);
+				TextView denied = (TextView) v.findViewById(R.id.disabled2);
 				ImageView icon = (ImageView) v.findViewById(R.id.packageicon);
+				
 				LinearLayout row = (LinearLayout) v.findViewById(R.id.rowMain);
 
 				if (appName != null) {
@@ -182,6 +178,15 @@ public class Permissions extends ListActivity {
 				}
 				if (packageName != null) {
 					packageName.setText(o.packageName);
+				}
+				if (found != null) {
+					found.setText("Permissions found: " + o.permissionCount);
+				}
+				if (active != null) {
+					active.setText(Integer.toString(o.activeCount));
+				}
+				if (denied != null) {
+					denied.setText(Integer.toString(o.deniedCount));
 				}
 				if (icon != null) {
 					icon.setImageDrawable(o.icon);
@@ -203,7 +208,7 @@ public class Permissions extends ListActivity {
 		protected String doInBackground(Void... params) {
 			
 			try {
-				List<String> tmpList = new ArrayList<String>();
+				ArrayList<Packages> tmpList = new ArrayList<Packages>();
 				
 				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 				factory.setNamespaceAware(true);
@@ -216,16 +221,28 @@ public class Permissions extends ListActivity {
 					if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("package")) {
 						
 						String packageName = xpp.getAttributeValue(0);
+						Packages tmp = new Packages("", "", null, 0, 0, 0);
 						
 						while (eventType != XmlPullParser.END_DOCUMENT ) {
 							if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("package")) {
+								if (!tmp.packageName.equals("") && tmp.permissionCount != 0) {
+									tmpList.add(tmp);
+								}
 								break;
 							}
 							if (xpp.getEventType() == XmlPullParser.START_TAG) {
 								if (xpp.getName().contains("perms")) {
 									//There are permissions that we can change.
-									tmpList.add(packageName);
-									break;
+									tmp.packageName = packageName;
+								}
+								else if (xpp.getName().equals("item")) {
+									//count the permissions
+									tmp.permissionCount++;
+									if (xpp.getAttributeValue(0).contains("stericson.disabled.")) {
+										tmp.deniedCount++;
+									} else {
+										tmp.activeCount++;
+									}
 								}
 							}
 							eventType = xpp.next();
@@ -238,8 +255,10 @@ public class Permissions extends ListActivity {
 		    	for (PackageInfo info : pm.getInstalledPackages(0)) {
 		    		//Only show those packages that are requesting permissions.
 					if (pm.getPackageInfo(info.packageName, pm.GET_PERMISSIONS).requestedPermissions != null) {
-						if (tmpList.contains(info.packageName)) {
-							list.add(new Packages(info.applicationInfo.loadLabel(getPackageManager()).toString(), info.packageName, info.applicationInfo.loadIcon(getPackageManager())));
+						for (Packages p : tmpList) {
+							if (p.packageName.equals(info.packageName)) {
+								list.add(new Packages(info.applicationInfo.loadLabel(getPackageManager()).toString(), info.packageName, info.applicationInfo.loadIcon(getPackageManager()), p.permissionCount, p.activeCount, p.deniedCount ));
+							}
 						}
 					}
 		    	}

@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -17,6 +18,7 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
@@ -26,25 +28,52 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.stericson.RootTools.RootTools;
+import com.stericson.RootTools.RootToolsException;
 
 public class MasterPermissions extends ListActivity {
 	
 	private ArrayList<Permissions_Master> list = new ArrayList<Permissions_Master>();
+	private ToggleButton toggle;
+	private TextView toggletext;
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.package_list);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.master_list);
+        
+        toggle = (ToggleButton) findViewById(R.id.toggle);
+        toggletext = (TextView) findViewById(R.id.toggletext);
+        
+        toggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean checked) {
+				if (checked) {
+					toggletext.setText("Disabling Permissions");
+					toggletext.setTextColor(Color.RED);
+				} else {
+					toggletext.setText("Enabling Permissions");
+					toggletext.setTextColor(Color.GREEN);
+				}
+			}
+        	
+        });
         
         buildList();
         warn();
@@ -52,11 +81,9 @@ public class MasterPermissions extends ListActivity {
 	
     public void warn() {
 		new AlertDialog.Builder(MasterPermissions.this).setCancelable(false)
-		.setTitle("WARNING!!").setMessage("Making changes to these permissions can have really bizarre effects! \n\n" +
-				"ONLY play with these AFTER making a backup of your device first! \n\n" +
-				"While changing any permissions can cause strange effects, these permissions are used by applications throughout " +
-				"your entire phone, which means that by changing these permissions you COULD cause your device to bootloop! \n\n" +
-				"You have been warned!")
+		.setTitle("WARNING!!").setMessage("Making changes here will affect ALL permissions that we can change. \n\n " +
+				"For example, If you disable the internet permission here then all apps shown on the main screen, after the splash, will be denied this permission. \n\n" +
+				"If you install new apps, or update apps, then those apps will have that permission if they request it.")
 		.setPositiveButton("ok",
 			new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog,
@@ -72,7 +99,7 @@ public class MasterPermissions extends ListActivity {
 		StaticThings.patience = ProgressDialog.show(MasterPermissions.this,
 				getString(R.string.working), getString(R.string.loadingPermissions), true);
 		
-		new LoadPackages().execute();
+		new LoadPermissions().execute();
     }
 	
     private void showList() {
@@ -97,17 +124,6 @@ public class MasterPermissions extends ListActivity {
 				})
 			.show();
 		} else {
-			
-			list.get(position).Active = !list.get(position).Active;
-
-			((TextView) v.findViewById(R.id.permissionis)).setText("This permission will be ");
-			if (list.get(position).Active) {
-				((TextView) v.findViewById(R.id.active)).setTextColor(Color.GREEN);
-				((TextView) v.findViewById(R.id.active)).setText("Active AFTER a reboot");
-			} else {
-				((TextView) v.findViewById(R.id.active)).setTextColor(Color.RED);
-				((TextView) v.findViewById(R.id.active)).setText("Disabled AFTER a reboot");	
-			}
 			
 	    	//set up our progress bar
 			StaticThings.patienceShowing = true;
@@ -150,7 +166,6 @@ public class MasterPermissions extends ListActivity {
 				TextView permissionDescription = (TextView) v.findViewById(R.id.permissionDescription);
 				TextView owner = (TextView) v.findViewById(R.id.Owner2);
 				ImageView icon = (ImageView) v.findViewById(R.id.packageicon);
-				TextView active = (TextView) v.findViewById(R.id.active);
 				LinearLayout row = (LinearLayout) v.findViewById(R.id.rowMain);
 
 				if (permission != null) {
@@ -165,15 +180,6 @@ public class MasterPermissions extends ListActivity {
 				if (icon != null) {
 					icon.setImageDrawable(o.icon);
 				}
-				if (active != null) {
-					if (o.Active) {
-						active.setTextColor(Color.GREEN);
-						active.setText("Active");
-					} else {
-						active.setTextColor(Color.RED);
-						active.setText("Disabled");	
-					}
-				}
 				if (position % 2 == 0) {
 					row.setBackgroundColor(colors[position % 2]);
 				} else {
@@ -184,6 +190,42 @@ public class MasterPermissions extends ListActivity {
 		}
 	}
 
+	/* Creates the menu items */
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add("Reboot");
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getTitle().equals("Reboot")) {
+			Reboot();
+		}
+		return true;
+	}
+	
+	private void Reboot() {
+		new AlertDialog.Builder(MasterPermissions.this).setCancelable(false)
+		.setTitle("You sure?").setMessage("Are you sure you want to reboot?")
+		.setPositiveButton("Yes", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				try {
+					RootTools.sendShell("reboot");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RootToolsException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).setNegativeButton("No", null)
+		.show();
+	}
+	
 	public void genericError() {
 		final SpannableString s = new SpannableString("We could not perform the requested operation! \n\n Please email me about this: StericDroid@gmail.com");
 		Linkify.addLinks(s, Linkify.ALL);
@@ -199,8 +241,7 @@ public class MasterPermissions extends ListActivity {
 		.show();	
 	}
 
-	//worker class to load packages.
-	private class LoadPackages extends AsyncTask<Void, Void, String> {
+	private class LoadPermissions extends AsyncTask<Void, Void, String> {
 
 		@Override
 		protected String doInBackground(Void... params) {
@@ -210,28 +251,29 @@ public class MasterPermissions extends ListActivity {
 				factory.setNamespaceAware(true);
 				XmlPullParser xpp = factory.newPullParser();
 				
-				xpp.setInput(new FileReader("/data/system/packages.xml"));
+				xpp.setInput(new FileReader(StaticThings.path()));
 				int eventType = xpp.getEventType();
 				
+				List<String> tmp = new ArrayList<String>();
+				
 				while(eventType != XmlPullParser.END_DOCUMENT) {
-					if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("permissions")) {
+					if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("perms")) {
 						while (eventType != XmlPullParser.END_DOCUMENT ) {
-							if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("permissions")) {
+							if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("perms")) {
 								break;
 							}
 							if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("item")) {
+								//everything in here is a permission
+								String description;
+								if (pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).loadDescription(pm) == null) {
+									description = "No description available for this permission";
+								} else {
+									description = pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).loadDescription(pm).toString();
+								}
 								
-								//Make sure we don't show permissions with Stericson.disable in them, they aren't real!
-								if (!xpp.getAttributeValue(0).contains("stericson.disable.")) {
-									//everything in here is a permission
-									String description;
-									if (pm.getPermissionInfo(xpp.getAttributeValue(0).toString(), 0).loadDescription(pm) == null) {
-										description = "No description available for this permission";
-									} else {
-										description = pm.getPermissionInfo(xpp.getAttributeValue(0).toString(), 0).loadDescription(pm).toString();
-									}
-									
-									list.add(new Permissions_Master(xpp.getAttributeValue(0), description, pm.getApplicationInfo(xpp.getAttributeValue(1), 0).loadLabel(getPackageManager()).toString(), pm.getApplicationInfo(xpp.getAttributeValue(1), 0).loadIcon(getPackageManager()), xpp.getAttributeValue(0).contains("stericson.disabled.")));
+								if (!tmp.contains(xpp.getAttributeValue(0).replace("stericson.disabled.", ""))) {
+									tmp.add(xpp.getAttributeValue(0).replace("stericson.disabled.", ""));
+									list.add(new Permissions_Master(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), description, pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).packageName, pm.getApplicationInfo(pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).packageName, 0).loadIcon(getPackageManager())));
 								}
 							}
 							eventType = xpp.next();
@@ -267,8 +309,8 @@ public class MasterPermissions extends ListActivity {
 		protected Integer doInBackground(String... permission) {
 			PackageManager pm = getPackageManager();
 			try {
-				RootTools.sendShell("dd if=/data/system/packages.xml of=/data/local/packages1.xml");
-				RootTools.sendShell("dd if=/data/system/packages.xml of=/data/local/packages.xml");
+				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages1.xml");
+				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages.xml");
 				RootTools.sendShell("chmod 0777 /data/local/packages1.xml");
 				RootTools.sendShell("chmod 0777 /data/local/packages.xml");
 			} catch (Exception e) {
@@ -283,25 +325,34 @@ public class MasterPermissions extends ListActivity {
 			        LineNumberReader lnr = new LineNumberReader( new FileReader( readTarget ) );
 			        FileWriter fw = new FileWriter( writeTarget );
 			        String line;
+			        boolean done = false;
 			        while( (line = lnr.readLine()) != null ){
-			        	if (line.contains("</permissions>")) {
-			        		break;
+			        	if (line.contains("<shared-user")) {
+			        		done = true;
 			        	}
-			        	//Found the permissions
-			            if (line.contains("<permissions>")) {
+			            if (line.contains("<perms>") && !done) {
+			            	RootTools.debugMode = true;
 			            	fw.write(line + "\n");
-			            	//Looking for the permission
 			            	while( (line = lnr.readLine()) != null ){
-			            		//Found the permission
+					        	if (line.contains("</perms>")) {
+					        		break;
+					        	}
 			            		if (line.contains(permission[0])) {
 			            			String tmp;
 			            			if (line.contains("stericson.disabled.")) {
-			            				tmp = line.replace("stericson.disabled.", "");
+			            				if (!toggle.isChecked()) {
+			            					tmp = line.replace("stericson.disabled.", "");
+			            				} else {
+			            					tmp = line;
+			            				}
 			            			} else {
-			            				tmp = line.replace("name=\"", "name=\"stericson.disabled.");
+			            				if (toggle.isChecked()) {
+			            					tmp = line.replace("name=\"", "name=\"stericson.disabled.");
+			            				} else {
+			            					tmp = line;
+			            				}
 			            			}
 			            			fw.write(tmp + "\n");
-			            			line = lnr.readLine();
 			            		} else {
 			            			fw.write(line + "\n");
 			            		}
@@ -317,8 +368,8 @@ public class MasterPermissions extends ListActivity {
 				}
 				
 				try {
-					RootTools.sendShell("dd if=/data/local/packages.xml of=/data/system/packages.xml");
-					//Dont be messy, clean the fucking shit up!
+					RootTools.sendShell("dd if=/data/local/packages.xml of=" + StaticThings.path());
+					//Dont be messy, clean the up!
 					RootTools.sendShell("rm /data/local/packages1.xml");
 					RootTools.sendShell("rm /data/local/packages.xml");
 					

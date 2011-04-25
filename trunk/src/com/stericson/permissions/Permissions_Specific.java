@@ -10,16 +10,11 @@ public class Permissions_Specific {
 	public Drawable icon;
 	public boolean Active;
 	
-	public Permissions_Specific(String permission, String permissionDescription, String Owner, Drawable icon, int active) {
+	public Permissions_Specific(String permission, String permissionDescription, String Owner, Drawable icon, boolean active) {
 		this.Permission = permission;
 		this.PermissionDescription = permissionDescription;
 		this.Owner = Owner;
 		this.icon = icon;
-		
-		if (active == 0) {
-			this.Active = true;
-		} else {
-			this.Active = false;
-		}
+		this.Active = !active;
 	}
 }

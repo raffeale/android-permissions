@@ -44,6 +44,7 @@
 			android:id="@+id/packageicon" 
 			android:layout_width="50dip" 
 			android:layout_height="50dip"
+			android:layout_gravity="center"
 		/>
 		<TextView
 		    android:id="@+id/Owner"
@@ -60,26 +61,6 @@
 		    android:layout_height="wrap_content"    
 		    android:layout_gravity="center"
 		    android:textColor="#00FF00"    
-		/>
-	</LinearLayout>
-	<LinearLayout
-			android:orientation="horizontal"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:layout_margin="5dip"
-		>
-		<TextView
-			android:id="@+id/permissionis"
-		    android:layout_width="wrap_content" 
-		    android:layout_height="wrap_content"	    
-		    android:layout_gravity="center"
-		    android:text="This Permission is: "
-		/>
-		<TextView
-		    android:id="@+id/active"
-		    android:layout_width="wrap_content" 
-		    android:layout_height="wrap_content"	    
-		    android:layout_gravity="center" 	    
 		/>
 	</LinearLayout>
 </LinearLayout>

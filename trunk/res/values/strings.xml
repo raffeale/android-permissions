@@ -6,7 +6,10 @@
 	<!-- Alerts -->
 	<string name="working">Working...</string>
 	<string name="loadingPackages">Loading packages whose permissions we can change...</string>
+	<string name="loadingPackagesAll">Loading all applications...</string>
 	<string name="loadingPackages2">Loading packages that offer permissions that we can change...</string>
 	<string name="loadingPermissions">Loading all permissions...</string>
 	<string name="changingPermission">Changing Permission...</string>
+	<string name="restoringpermissions">Restoring all permissions...</string>
+	<string name="repairing">Repairing...</string>
 </resources>

@@ -1,11 +1,15 @@
 package com.stericson.permissions;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -61,29 +65,28 @@ public class ApplicationSpecifics extends ListActivity {
     	packageName = extras.getString("packageName");
     	
     	PackageManager pm = getPackageManager();
-    	
-    	try {
+    	    	
+		try {
 			icon.setImageDrawable(pm.getApplicationIcon(packageName));
 			appName.setText(pm.getApplicationLabel(pm.getApplicationInfo(packageName, 0)).toString());
-			
-			for (String permission : pm.getPackageInfo(packageName, pm.GET_PERMISSIONS).requestedPermissions) {
-				String description;
-
-				if (pm.getPermissionInfo(permission, 0).loadDescription(getPackageManager()) == null) {
-					description = "No description available for this permission";
-				} else {
-					description = pm.getPermissionInfo(permission, 0).loadDescription(getPackageManager()).toString();
-				}
-				
-				list.add(new Permissions_Specific(permission, description, pm.getApplicationInfo(pm.getPermissionInfo(permission, 0).packageName, 0).loadLabel(pm).toString(), pm.getApplicationInfo(pm.getPermissionInfo(permission, 0).packageName, 0).loadIcon(pm), pm.checkPermission(permission, packageName)));
-			}
-			setListAdapter(new PermissionsAdapter(this, R.layout.application_permissions_row, list));
-			
 		} catch (NameNotFoundException e) {
 			e.printStackTrace();
 		}
+    	
+		//set up our progress bar
+		StaticThings.patienceShowing = true;
+		StaticThings.patience = ProgressDialog.show(ApplicationSpecifics.this,
+				getString(R.string.working), getString(R.string.loadingPermissions), true);
+		
+		new LoadPermissions().execute();
     }
  
+    private void showList() {
+    	setListAdapter(new PermissionsAdapter(this,
+				R.layout.application_permissions_row, list));
+    	StaticThings.patience();
+    }
+    
 	/* Creates the menu items */
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add("Reboot");
@@ -106,13 +109,10 @@ public class ApplicationSpecifics extends ListActivity {
 				try {
 					RootTools.sendShell("reboot");
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (RootToolsException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -240,13 +240,66 @@ public class ApplicationSpecifics extends ListActivity {
 			return (v);
 		}
 	}
-	
+
+	//worker class to load packages.
+	private class LoadPermissions extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			PackageManager pm = getPackageManager();
+    		try {
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+				factory.setNamespaceAware(true);
+				XmlPullParser xpp = factory.newPullParser();
+				
+				xpp.setInput(new FileReader(StaticThings.path()));
+				int eventType = xpp.getEventType();
+				
+				while(eventType != XmlPullParser.END_DOCUMENT) {
+					if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("package") && xpp.getAttributeValue(0).equals(packageName)) {
+						while (eventType != XmlPullParser.END_DOCUMENT ) {
+							if (eventType == XmlPullParser.END_TAG && xpp.getName().equals("package")) {
+								break;
+							}
+							if (eventType == XmlPullParser.START_TAG && xpp.getName().equals("item")) {
+								
+								//everything in here is a permission
+								String description;
+								if (pm.getPermissionInfo(xpp.getAttributeValue(0).toString().replace("stericson.disabled.", ""), 0).loadDescription(pm) == null) {
+									description = "No description available for this permission";
+								} else {
+									description = pm.getPermissionInfo(xpp.getAttributeValue(0).toString().replace("stericson.disabled.", ""), 0).loadDescription(pm).toString();
+								}
+								
+								list.add(new Permissions_Specific(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), description, pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).packageName, pm.getApplicationInfo(pm.getPermissionInfo(xpp.getAttributeValue(0).replace("stericson.disabled.", ""), 0).packageName, 0).loadIcon(getPackageManager()), xpp.getAttributeValue(0).contains("stericson.disabled.")));
+							}
+							eventType = xpp.next();
+						}
+					}
+					eventType = xpp.next();
+				}
+			} catch (XmlPullParserException e) {
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (NameNotFoundException e) {
+				e.printStackTrace();
+			}
+			return "done";
+		}
+		
+		protected void onPostExecute(String result) {
+			showList();
+		}
+	}
+
 	//worker class to change permissions
 	private class ChangePermissions extends AsyncTask<String, Void, Integer> {
 
 		@Override
 		protected Integer doInBackground(String... permission) {
-			PackageManager pm = getPackageManager();
 			try {
 				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages1.xml");
 				RootTools.sendShell("dd if=" + StaticThings.path() + " of=/data/local/packages.xml");

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#303030"
+	android:id="@+id/main"
+	>
+	<LinearLayout
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:orientation="vertical">
+	    
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:background="@drawable/image"
+			android:layout_margin="10dip"
+			/>
+		<LinearLayout
+		    android:orientation="horizontal"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:gravity="center"
+		    >
+			<ToggleButton
+				android:id="@+id/toggle"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:checked="true"
+				android:textOn=""
+				android:textOff=""
+				/>
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="@string/layout_disablingpermission"
+				android:textColor="#f00"
+				android:id="@+id/toggletext"
+				android:layout_marginLeft="10dip"
+				android:textSize="19dip"
+				/>
+		</LinearLayout>
+	    <LinearLayout
+		    android:orientation="vertical"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"		    
+		    >
+			<ListView android:id="@id/android:list"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:choiceMode="none"
+	            android:fastScrollEnabled="true"
+	            android:cacheColorHint="#ff707070"
+	            android:headerDividersEnabled="false"
+	            android:footerDividersEnabled="false"            
+	        /> 
+	    </LinearLayout>
+	</LinearLayout>
+	    
+	<RelativeLayout 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/pop"
+		android:layout_centerInParent="true"/>
+</RelativeLayout>	    
+		

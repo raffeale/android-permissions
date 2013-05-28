@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="version">v3.0</string>
+    <string name="app_name">Permissions Denied</string>
+
+	<!-- Alerts -->
+    <string name="backupcreate">Backup creato!</string>
+    <string name="permissionsLocked">Permessi Bloccati!</string>
+    <string name="permissionsUnlocked">Permessi Sbloccati!</string>
+    <string name="permissionsFixed">Permessi aggiustati!</string>
+    <string name="affectsall">Questi permessi riguardano tutte le applicazioni elencate qui! Stai molto attento nel cambiarli!</string>
+    <string name="thisisimportant">Questo è  molto importante, accertati di leggere tutto.</string>
+    <string name="permissionsRestored">Permessi Ripristinati!</string>
+    <string name="permissionsRestoredFailed">Errore durante il ripristino dei permessi!</string>
+    <string name="permissionsChanged">Permessi cambiati!</string>
+    <string name="permissionsChangeFailed">Errore durante il cambiamento dei permessi!</string>
+    <string name="afterReboot">I cambiamenti avranno effetto dopo il riavvio!</string>
+	<string name="warning">Attenzione!</string>
+	<string name="becareful">Questi permessi di solito riguardano più di un\'applicazione. \n\n
+	    						Cambiando i permessi qui cambieranno i permessi per tutte le applicazioni elencate. \n\n
+	    						Alcuni di questi permessi non possono essere cambiati...se provi a cambiarli Google li ripristina al successivo riavvio. \n
+	    						Per evitarlo devi tenere i permessi bloccati. (Controlla il menù impostazioni)</string>
+	<string name="remember">Ricorda...</string>
+	<string name="rememberrestart"><b>Questo è molto importante, accertati di leggere tutto. </b>\n\n
+	    							Questa è un\'applicazione avanzata, destinata ad utenti esperti o a cui piace sperimentare con i propri telefoni. Sebbene quest\'applicazione abbia la capacita di controllare i permessi sul tuo telefono,
+	    							può anche causare comportamenti strani e in alcuni casi anche riavvii continui che richiedono un reset totale (in rari casi) \n\n
+	    							Questo può succedere per diversi motivi...cambiare certi permessi può provocare il non corretto avvio del telefono, in casi rari bloccare il file dei permessi e riavviare
+	    							causeràproblemi perché altri files devono modificare packages.xml. \n\n
+	    							
+	    							Per favore sii consapevole dei rischi e dei benefici dell\'applicazione. \n\n</string>
+	<string name="warn2"><b>Questo è molto importante, accertati di leggere tutto. </b> \n\n
+	    					Quelli che vedi sono i permessi per questa applicazione. Puoi cambiarli da attivo a disabilitato o viceversa. \n\n
+	    					Dopo aver cambiato i permessi con questo programma sarà necessario riavviare il telefono. Premesso questo potrebbe essere necessario eseguire una di queste tre operazioni per far si che i permessi restino come specificato. \n\n
+	    					1: Riavviare normalmente (potrebbe andar tutto bene) \n
+	    					2: Riavviare usando l\'opzione "riavvia"nel menù dell\'applicazione (Questo potrebbe non funzionare per tutti i dispositivi) \n
+	    					3: Bloccare il file dei permessi e riavviare normalmente (Sblocca il file circa 5 minuti dopo che il dispositivo si è riavviato)\n\n
+	    					
+	    					La terza opzione è l\'ultima spiaggia, perché potrebbe causare problemi su alcuni dispositivi (Non ho mai avuto problemi ma qualcuno dice di sì)\n\n
+	    					
+	    					Infine, alcuni permessi sono impossibili da cambiare: anche se li cambi tornano come prima appena il dispositivo si accende. Per evitarlo devi tenere il file dei permessi sempre bloccato una volta riavviato il dispositivo.</string>
+	    							    						
+	<string name="chattr">Chattr non è stato trovato sul dispositivo, per usare questo programma devi avere Chattr installato. \n\n
+	    					Tu hai BusyBox installato, ma Chattr non è incluso con la tua versione di BusyBox O manca il symlink. \n\n
+	    					per risolvere il problema devi scaricate e installare BusyBox dal Play Store così da avere Chattr installato e funzionante. \n\n
+	    					https://play.google.com/store/apps/details?id=stericson.busybox</string>
+
+
+	<string name="busybox">BusyBox non è stato trovato su questo dispositivo. Per usare questo programma devi avere BusyBox installato. \n\n
+    					Scarica e installa BusyBox dal Play Store. \n\n
+    					https://play.google.com/store/apps/details?id=stericson.busybox</string>
+    <string name="permissionchangefailed">Uno o più cambiamenti ai permessi non sono rimasti dopo il riavvio, potresti aver bisogno di bloccare il file dei permessi per renderli permanenti.</string>
+    <string name="rebootFailed">Non è stato possibile riavviare il dispositivo...</string>
+
+    <!-- Progressive Messages -->
+    <string name="working">Elaborazione...</string>
+    <string name="loading">Caricamento...</string>
+    <string name="loadingPackages">Caricamento pacchetti...</string>
+    <string name="loadingPackagesAll">Caricamento applicazioni...</string>
+    <string name="loadingPackages2">Caricamento pacchetti di cui possiamo cambiare i permessi...</string>
+    <string name="loadingPermissions">Caricamento permessi...</string>
+    <string name="changingPermission">Cambiamento permessi...</string>
+    <string name="restoringpermissions">Ripristino di tutti i permessi...</string>
+    <string name="repairing">Riparazione...</string>
+    <string name="reading">Lettura...</string>
+    <string name="readingPermissions">Lettura permessi...</string>
+    <string name="buildingList">Creazione elenco...</string>
+    <string name="fixingPermissions">Correzione permessi...</string>
+    <string name="checkingState">Controllo stato dei permessi...</string>
+    <string name="verifyingFile">Verifica integrità del file...</string>
+    <string name="searching">Ricerca...</string>
+
+    <!-- Errors -->
+    <string name="shell_error">C\'è stato un problema nell\'esecuzione della shell con i permessi di root. Questo può essere causato da superuser/supersu o da un dispositivo senza il root. \n\n Prova a rimuovere l\'autorizzazione di questo programma in superuser/supersu, disinstalla questa applicazione, reinstallala, e riconcedi i permessi di root in superuser/supersu. \n\n Puoi verificare se il dispositivo ha il root scaricando RootChecker dal Play Store. </string>
+    <string name="file_non_existent">Impossibile trovare il file dei permessi.</string>
+    <string name="generic_error">Impossibile completare l\'operazione! \n Per favore scrivimi a StericDroid@gmail.com con i dettagli</string>
+    <string name="permissionslockfailed">Impossibile bloccare i permessi!</string>
+    <string name="permissionsunlockfailed">Impossibile sbloccare i permessi!</string>
+    <string name="ooops">OOOOOPS!</string>
+
+    <!-- Dialog stuff -->
+    <string name="confirm">Conferma?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="cancel">Annulla</string>
+    <string name="confirm_wipe">Sei sicuro di voler svuotare il database? \n\n L\'applicazione sarà riavviata per completare l\'operazione.</string>
+    <string name="diablePermission">Vuoi Abilitare o Disabilitare questo permesso?\n\n Ricordati che cambiare questo permesso interessera OGNI applicazione sul tuo dispositivo, INCLUSE le applicazioni di sistema. \n Se fatto nel modo scorretto può essere pericoloso e causare instabilità al tuo dispositivo!</string>
+    <string name="disable">Disabilita</string>
+    <string name="enable">Abilita</string>
+    <string name="create">Crea</string>
+    <string name="restore">Ripristina</string>
+    <string name="createBackup">Crea Backup...</string>
+    <string name="uptoyou">Decidi tu...</string>
+    <string name="nobackup">Non trovo alcun backup, per favore creane uno...</string>
+    <string name="backuprestored">Backup Ripristinato! \n\n È necessario il riavvio per applicare i cambiamenti.</string>
+    <string name="choosebackupoption">Vuoi creare o ripristinare il tuo backup? \n\n (Creare un backup sovrascriverà quello già esistente)</string>
+
+    <!-- UI Elements -->
+    <string name="disabled">Disabilitato</string>
+    <string name="active">Attivo</string>
+    <string name="permissionsFound">Permessi trovati:</string>
+    <string name="noDescription">Nessuna descrizione disponibile per questo permesso</string>
+
+    <!-- Menu Items -->
+    <string name="lock">Blocca/Sblocca permessi</string>
+    <string name="restorePermissions">Ripristina tutti i permessi</string>
+    <string name="restoreBackup">Backup e ripristino</string>
+    <string name="settings">Impostazioni</string>
+    <string name="reboot">Riavvia</string>
+
+    <!-- Pager Items -->
+    <string name="pager_packages">Pacchetti</string>
+    <string name="pager_permissions">Permessi</string>
+    <string name="pager_mastercontrol">Controllo principale</string>
+    <string name="pager_fixPermissions">Aggiusta permessi</string>
+    <string name="pager_faq">FAQ/Guida</string>
+    <string name="pager_changePermission">Seleziona un elemento per vedere e cambiare i suoi permessi!</string>
+    <string name="pager_seePermission">Seleziona un permesso, vedi quali applicazioni lo usano e disabilitalo/abilitalo!</string>
+    <string name="pager_permissionsfix">Seleziona un elemento e correggi eventuali problemi di UID o permessi!</string>
+    <string name="pager_masterpermissions">Seleziona un permesso e disabilitalo/abilitalo in tutto il tuo dispositivo!</string>
+    <string name="pager_faq_title">Non funziona? Hai domande? Non capisci? Trova le tue risposte qui!</string>
+
+    <!-- Layout Items -->
+    <string name="permissionis">Questo permesso è:</string>
+    <string name="layout_restoreallpermissions">Ripristina tutti i permessi</string>
+    <string name="layout_mastercontrol">Controllo principale</string>
+    <string name="layout_fixpermissions">Aggiusta permessi</string>
+    <string name="layout_backup">Backup</string>
+    <string name="layout_package">Pacchetto:</string>
+    <string name="type">Tipo:</string>
+    <string name="layout_active">Attivo: </string>
+    <string name="layout_disabled">Disabilitato: </string>
+    <string name="layout_permission">Permesso: </string>
+    <string name="layout_owner">Proprietario:</string>
+    <string name="layout_disablingpermission">Disattivazione permessi</string>
+
+    <!-- Settings -->
+    <string name="lockwarning">Tenendo i permessi bloccati nessuno può cambiare o modificare il file packages.xml. \n\n Se vuoi disinstallare questa applicazione, flashare una nuova rom, ripristinare un backup, usare Clock Work Mod, o una cosa simile, dovrai disabilitare questo e sbloccare i permessi PRIMA di fare una delle cose menzionate in precedenza. \n\n Parliamoci chiaro: lasciare questo attivo può essere pericoloso! Se questo file è bloccato NIENTE lo può toccare, modificare, cancellare, sostituire, ecc. \n\n Se ti serve questa opzione attiva usala solo per il tempo necessario e disattivala di nuovo. \n\n Attivala solamente se ne hai assolutamente bisogno e sai come ripristinare un imprevisto che potrebbe verificarsi!</string>
+    <string name="keeplocked">Tieni Bloccato</string>
+    <string name="notificationOptions">Opzioni Notifiche</string>
+    <string name="databaseOptions">Optioni Database</string>
+    <string name="wipedatabase">Svuota Database</string>
+    <string name="notifyStatusBar">Barra di notifica</string>
+    <string name="wipedescription">Puoi svuotare il database di questa applicazione per risparmiare spazio o correggere problemi che potrebbero essere causati dal database.</string>
+    <string name="keeplockeddescription">Blocca/riblocca sempre i permessi durante lo spegnimento e quando l\'applicazione è in esecuzione. (richiesto per cambiare alcuni permessi e richiesto su alcuni dispositivi)</string>
+    <string name="lockedOptions">Opzioni blocco permessi</string>
+
+    <!-- faq -->
+    <string-array name="questions">
+       <item> </item>
+        <item>I miei permessi non restano dopo il riavvio!"</item>
+        <item>Ho installato un\'applicazione e non la vedo nell\'elenco!"</item>
+        <item>Ho installato un\'aggiornamento di un\'applicazione che usa un nuovo permesso e non lo riesco a vedere nell\'elenco!"</item>
+        <item>Ho disinstallato un\'applicazione e la vedo ancora nel programma!"</item>
+        <item>Ho un problema non elencato qui!"</item>
+    </string-array>
+
+    <string-array name="answers">
+        <item>Dopo che cambi i permessi con questo programma devi riavviare il dispositivo. Premesso questo potrebbe essere necessario eseguire una di queste tre operazioni per far si che i permessi restino come specificato. \n 1: Riavviare normalmente (potrebbe andar tutto bene) \n 2: Riavviare usando l\'opzione "riavvia"nel menù dell\'applicazione (Questo potrebbe non funzionare per tutti i dispositivi) \n 3: Bloccare il file dei permessi e riavviare normalmente (Sblocca il file circa 5 minuti dopo che il dispositivo si è riavviato) </item>
+        <item>Probabilmente devi abilitare l\'opzione di blocco nelle impostazioni.</item>
+        <item>Potresti aver installato l\'applicazione mentre i permessi erano bloccati, per risolvere devi disinstallare l\'applicazione, sbloccare i permessi, re-installare l\'applicazione e ribloccare i permessi. \n\n Potrebbe anche succedere perché l\'applicazione usa un id utente condiviso (gestibile solo con la versione PRO di questa applicazione)</item>
+        <item>Potresti aver aggiornato l\'applicazione mentre i permessi erano bloccati, per risolvere devi disinstallare l\'applicazione, sbloccare i permessi, re-installare l\'applicazione e ribloccare i permessi.</item>
+        <item>Potresti aver disinstallato l\'applicazione mentre i permessi erano bloccati, per risolvere devi re-installare l\'applicazione, sbloccare i permessi, disinstallare l\'applicazione e ribloccare i permessi.</item>
+        <item>Mandami una email me a StericDroid@gmail.com con i dettagli del tuo problema.</item>
+    </string-array>
+
+</resources>

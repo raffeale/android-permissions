@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="version">v3.0</string>
+    <string name="app_name">Permissions Denied</string>
+
+	<!-- Alerts -->
+    <string name="backupcreate">Backup Created!</string>
+    <string name="permissionsLocked">Permissions Locked!</string>
+    <string name="permissionsUnlocked">Permissions Unlocked!</string>
+    <string name="permissionsFixed">Permissions fixed!</string>
+    <string name="affectsall">These permissions affect all applications listed here! Be very careful when changing these permissions!</string>
+    <string name="thisisimportant">This is very important, so make sure you read all of this.</string>
+    <string name="permissionsRestored">Permissions Restored!</string>
+    <string name="permissionsRestoredFailed">Permissions Restore Failed!</string>
+    <string name="permissionsChanged">Permissions changed!</string>
+    <string name="permissionsChangeFailed">Permissions Change Failed!</string>
+    <string name="afterReboot">Changes will take effect after a reboot!</string>
+	<string name="warning">Warning!</string>
+	<string name="becareful">These permissions usually affect more than one application. \n\n
+	    						Changing permissions here will change the permissions for all of the applications listed. \n\n
+	    						Some of these permissions cannot be changed..if you do try and change them, Google restores them after a reboot. \n
+	    						In order to combat this, you have to keep permissions lock on. (Check settings menu)</string>
+	<string name="remember">Remember...</string>
+	<string name="rememberrestart"><b>This is very important, so make sure you read all of this. </b>\n\n
+	    							This is an advanced Application, meant for advanced users or users that just like to experiment with their phones. While this application does have the ability to control the permissions on your phone,
+	    							it can also cause strange things to happen and in some cases cause bootloops which will require a factory reset/wipe (rare cases) \n\n
+	    							This can happen for a number of reasons...changing certain permissions can cause the phone not to boot, in some rare cases locking the permissions file and rebooting will
+	    							cause issues because other files need to modify packages.xml. \n\n
+	    							
+	    							Please be aware of the risks and the benefits of using this application.\n\n</string>
+	<string name="warn2"><b>This is very important, so make sure you read all of this. </b> \n\n
+	    					Listed before you are the permissions for this application. You can change these permissions from active to disabled or vice versa. \n\n
+	    					After you change permissions using this application you will need to reboot your phone. With that being said, you may have to do one of three things to get the permissions to stick. \n\n
+	    					1: Reboot normally (Permissions may stick) \n
+	    					2: Reboot using the reboot option in the application menu (This may not work for all devices)\n
+	    					3: Lock the permissions file, and then reboot normally.(Unlock the file about 5 minutes after the reboot is completed)\n\n
+	    					
+	    					The last option is a last resort, as it can cause problem on a few devices (I\'ve never had any issue but other have reported some)\n\n
+	    					
+	    					Finally, some permissions are resistant to change, meaning that even if you get them to change, they change back later when the device is on. In order to combat these permissions you have to keep the permissions file locked indefinitely after the reboot.</string>
+	    							    						
+	<string name="chattr">Chattr could not be found on this device, in order to use this application you must have Chattr installed. \n\n
+	    					You have BusyBox installed, but Chattr is either not included with your BusyBox OR it is not symlinked. \n\n
+	    					to resolve this you need to download, and install, BusyBox from the Android market to get Chattr properly installed and symlinked. \n\n
+	    					https://market.android.com/details?id=stericson.busybox</string>
+
+
+	<string name="busybox">BusyBox could not be found on this device, in order to use this application you must have BusyBox installed. \n\n
+    					Download, and install, BusyBox from the Android market. \n\n
+    					https://market.android.com/details?id=stericson.busybox</string>
+    <string name="permissionchangefailed">One or more permissions did not persist after the reboot, you might need to lock the permissions in order to force these permissions to persist.</string>
+    <string name="rebootFailed">The attempt to reboot your device has failed...</string>
+
+    <!-- Progressive Messages -->
+    <string name="working">Working...</string>
+    <string name="loading">Loading...</string>
+    <string name="loadingPackages">Loading packages...</string>
+    <string name="loadingPackagesAll">Loading all applications...</string>
+    <string name="loadingPackages2">Loading packages that offer permissions that we can change...</string>
+    <string name="loadingPermissions">Loading permissions...</string>
+    <string name="changingPermission">Changing Permission...</string>
+    <string name="restoringpermissions">Restoring all permissions...</string>
+    <string name="repairing">Repairing...</string>
+    <string name="reading">Reading...</string>
+    <string name="readingPermissions">Reading Permissions...</string>
+    <string name="buildingList">Building List...</string>
+    <string name="fixingPermissions">Building List...</string>
+    <string name="checkingState">Checking Permission State...</string>
+    <string name="verifyingFile">Verifying file integrity...</string>
+    <string name="searching">Searching...</string>
+
+    <!-- Errors -->
+    <string name="shell_error">There was a problem opening a shell with root access. This is either being caused by superuser/supersu or by a device that is inproperly rooted. \n\n Try removing superuser/supersu permissions, uninstalling this application, reinstalling this application, and then regranting superuser/supersu permissions for this application. \n\n You can check your device to see if it is properly rooted by downloading RootChecker from the Android market. </string>
+    <string name="file_non_existent">Unable to find permissions file.</string>
+    <string name="generic_error">We could not perform the requested operation! \n Please email me about this: StericDroid@gmail.com</string>
+    <string name="permissionslockfailed">Could not lock permissions!</string>
+    <string name="permissionsunlockfailed">Could not unlock permissions!</string>
+    <string name="ooops">OOOOOPS!</string>
+
+    <!-- Dialog stuff -->
+    <string name="confirm">Confirm?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_wipe">Are you sure you want to wipe the database? \n\n The application will be restarted in order to complete the wipe.</string>
+    <string name="diablePermission">Do you want to Enable or Disable this permission?\n\n Keep in mind that changing this permission will affect EVERY application on your device, INCLUDING system applications. \n If done incorrectly this can be dangerous and can lead to instabilities with your device!</string>
+    <string name="disable">Disable</string>
+    <string name="enable">Enable</string>
+    <string name="create">Create</string>
+    <string name="restore">Restore</string>
+    <string name="createBackup">Create Backup...</string>
+    <string name="uptoyou">Up to you...</string>
+    <string name="nobackup">No existing backup found, please create one...</string>
+    <string name="backuprestored">Backup Restored! \n\n Reboot required for change to take place.</string>
+    <string name="choosebackupoption">Would you like to create or restore your backup? \n\n (Creating a backup will overwrite the existing backup)</string>
+
+    <!-- UI Elements -->
+    <string name="disabled">Disabled</string>
+    <string name="active">Active</string>
+    <string name="permissionsFound">Permissions found:</string>
+    <string name="noDescription">No description available for this permission</string>
+
+    <!-- Menu Items -->
+    <string name="lock">Lock/Unlock Permissions</string>
+    <string name="restorePermissions">Restore All Permissions</string>
+    <string name="restoreBackup">Restore/Backup</string>
+    <string name="settings">Settings</string>
+    <string name="reboot">Reboot</string>
+
+    <!-- Pager Items -->
+    <string name="pager_packages">Packages</string>
+    <string name="pager_permissions">Permissions</string>
+    <string name="pager_mastercontrol">Master Control</string>
+    <string name="pager_fixPermissions">Fix Permissions</string>
+    <string name="pager_faq">FAQ/Help</string>
+    <string name="pager_changePermission">Select an item to see and change its permissions!</string>
+    <string name="pager_seePermission">Select a permission, see the apps that use it, and disable/enable it!</string>
+    <string name="pager_permissionsfix">Select an item and fix any UID or permissions problems that may exist!</string>
+    <string name="pager_masterpermissions">Select a permissions and disable/enable it across your entire device!</string>
+    <string name="pager_faq_title">Not working? Got questions? Lost? Get your answers here!</string>
+
+    <!-- Layout Items -->
+    <string name="permissionis">This permission is:</string>
+    <string name="layout_restoreallpermissions">Restore All Permissions</string>
+    <string name="layout_mastercontrol">Master Control</string>
+    <string name="layout_fixpermissions">Fix Permissions</string>
+    <string name="layout_backup">Backup</string>
+    <string name="layout_package">Package:</string>
+    <string name="type">Type:</string>
+    <string name="layout_active">Active: </string>
+    <string name="layout_disabled">Disabled: </string>
+    <string name="layout_permission">Permission: </string>
+    <string name="layout_owner">Owner:</string>
+    <string name="layout_disablingpermission">Disabling Permissions</string>
+
+    <!-- Settings -->
+    <string name="lockwarning">By keeping permissions locked noone can change or modify the file packages.xml. \n\n If you intend to uninstall this application, flash a new rom, restore a backup, use Clock Work Mod, or anything of that nature or remotely close to that, you will need to disable this and unlock the permissions before doing any of the aformentioned items. \n\n I want to make it perfectly clear, having this enabled can be dangerous! With this file locked NOTHING can touch this file, modify it, remove it, replace it, etc. \n\n If you need this on then use it and turn it back off as soon as you do not need it again. \n\n Only turn this on if you Absolutely need it and you know how to recover from anything unexepcted that occurs!</string>
+    <string name="keeplocked">Keep Locked</string>
+    <string name="notificationOptions">Notification Options</string>
+    <string name="databaseOptions">Database Options</string>
+    <string name="wipedatabase">Wipe Database</string>
+    <string name="notifyStatusBar">Notify StatusBar</string>
+    <string name="wipedescription">You can wipe the databases used in this application to save space, or to try and fix issues that might be database related.</string>
+    <string name="keeplockeddescription">Always lock/relock permissions on shutdown and when the application is running. (required to change some permissions and required by some phones)</string>
+    <string name="lockedOptions">Permissions Lock Options</string>
+
+    <!-- faq -->
+    <string-array name="questions">
+       <item> </item>
+        <item>My permission changes are not sticking after a reboot!"</item>
+        <item>I installed an application and it is not showing up in the list!"</item>
+        <item>I performed an update on one of my applications that introduced a new permission and I cannot see it in the permissions list!"</item>
+        <item>I uninstalled one of my applications and it still shows up in Permissions Denied!"</item>
+        <item>I have a problem that is not listed here!"</item>
+    </string-array>
+
+    <string-array name="answers">
+        <item>After you change permissions using this application you will need to reboot your phone. With that being said, you may have to do one of three things to get the permissions to stick. \n\n 1: Reboot normally (Permissions may stick) \n 2: Reboot using the reboot option in the application menu (This may not work for all devices) \n 3: Lock the permissions file, and then reboot normally.(Unlock the file about 5 minutes after the reboot is completed) \n\n The last option is a last resort, as it can cause problem on a few devices (I\'ve never had any issue but other have reported some) \n\n Finally, some permissions are resistant to change, meaning that even if you get them to change, they change back later when the device is on. In order to combat these permissions you have to keep the permissions file locked indefinitely after the reboot.</item>
+        <item>You probably need to enable the lock option in the settings menu.</item>
+        <item>You may have installed the application while Permissions were locked on your phone, to resolve this you need to uninstall the application, unlock your permissions, and then re-install the application..after you do this you can relock your permissions. \n\n This could also be because this application uses a shared user id which is only available in the pro version.</item>
+        <item>You may have installed the application update while Permissions were locked on your phone, to resolve this you need to uninstall the application, unlock your permissions, and then re-install the application..after you do this you can relock your permissions.</item>
+        <item>You may have uninstalled the application update while Permissions were locked on your phone, to resolve this you need to re-install the application, unlock your permissions, and then uninstall the application..after you do this you can relock your permissions.</item>
+        <item>Email me at StericDroid@gmail.com with the details of your problem.</item>
+    </string-array>
+
+</resources>

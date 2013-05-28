@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:title="@string/lockedOptions">
+		<CheckBoxPreference
+		        android:title="@string/keeplocked"
+		        android:defaultValue="false"
+		        android:summary="@string/keeplockeddescription"
+		        android:key="alwaysLock" />
+	</PreferenceCategory>
+	<PreferenceCategory android:title="@string/notificationOptions">
+		<CheckBoxPreference
+		        android:title="@string/notifyStatusBar"
+		        android:defaultValue="true"
+		        android:summary="Notify via StatusBar the state of the Permissions file...Locked/Unlocked"
+		        android:key="notifyLock" />
+	</PreferenceCategory>
+    <PreferenceCategory android:title="@string/databaseOptions">
+        <Preference
+            android:title="@string/wipedatabase"
+            android:summary="@string/wipedescription"
+            android:key="wipe"/>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="#303030"
+    android:id="@+id/main"	
+	>
+	
+    <LinearLayout
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="vertical"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		>
+	    
+	   	<!-- HEADER -->
+		<include android:id="@+id/header" layout="@layout/header" android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerHorizontal="true"/>	
+	    
+		<LinearLayout
+			android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			>
+			<ImageView
+				android:id="@+id/icon"
+				android:layout_width="50dip"
+				android:layout_height="50dip"
+			/>
+			<TextView
+				android:id="@+id/appName"
+		    	android:layout_width="fill_parent"
+		    	android:layout_height="50dip"
+		    	android:gravity="center"
+		    	android:textSize="22dip"
+		    	android:textColor="#0f0"
+		    />
+		</LinearLayout>
+	    <LinearLayout
+		    android:orientation="vertical"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"		    
+		    >
+			<ListView android:id="@id/android:list"
+	            android:layout_width="fill_parent"
+	            android:layout_height="fill_parent"
+	            android:choiceMode="none"
+	            android:fastScrollEnabled="true"
+	            android:cacheColorHint="#30ffffff"
+	            android:headerDividersEnabled="false"
+	            android:footerDividersEnabled="false"
+	        /> 
+	    </LinearLayout>
+	</LinearLayout>
+	
+ 	<RelativeLayout 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/pop"
+		android:layout_centerInParent="true"/>
+</RelativeLayout>	    
+		

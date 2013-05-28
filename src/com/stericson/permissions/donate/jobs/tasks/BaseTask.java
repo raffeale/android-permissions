@@ -1,6 +1,7 @@
 package com.stericson.permissions.donate.jobs.tasks;
 
 import android.content.Context;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.Shell;
 import com.stericson.permissions.donate.Constants;

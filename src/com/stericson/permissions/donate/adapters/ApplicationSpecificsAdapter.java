@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.domain.Permission;
 

@@ -3,6 +3,7 @@ package com.stericson.permissions.donate.service;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.Shared;
 

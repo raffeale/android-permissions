@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.PermissionsActivity;
 import com.stericson.permissions.donate.jobs.ChangeMasterPermission;

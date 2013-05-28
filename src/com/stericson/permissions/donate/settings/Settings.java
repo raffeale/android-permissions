@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.Shared;
 import com.stericson.permissions.donate.interfaces.Choice;

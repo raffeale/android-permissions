@@ -3,6 +3,7 @@ package com.stericson.permissions.donate.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
 import com.stericson.permissions.donate.Shared;
 import com.stericson.permissions.donate.service.PreferenceService;
 

@@ -1,7 +1,6 @@
 package com.stericson.permissions.donate.jobs.tasks;
 
 import com.stericson.RootTools.RootTools;
-import com.stericson.RootTools.exceptions.RootDeniedException;
 import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.R;
@@ -9,7 +8,6 @@ import com.stericson.permissions.donate.domain.Result;
 import com.stericson.permissions.donate.jobs.InitialChecks;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 public class InitialChecksTask extends BaseTask {
 

@@ -2,10 +2,10 @@ package com.stericson.permissions.donate.jobs;
 
 import android.content.Context;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.App;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.BaseActivity;
-import com.stericson.permissions.donate.activities.BaseListActivity;
 import com.stericson.permissions.donate.domain.Result;
 import com.stericson.permissions.donate.interfaces.JobCallback;
 import com.stericson.permissions.donate.jobs.tasks.ReadFixandCheckTask;

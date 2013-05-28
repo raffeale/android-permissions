@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
 import com.stericson.permissions.donate.service.PreferenceService;
 
 public class Update extends BroadcastReceiver {

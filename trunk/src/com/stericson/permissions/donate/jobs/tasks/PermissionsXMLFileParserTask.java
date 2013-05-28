@@ -2,6 +2,7 @@ package com.stericson.permissions.donate.jobs.tasks;
 
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.interfaces.PermissionsParserDelegate;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 

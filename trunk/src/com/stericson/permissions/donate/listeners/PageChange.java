@@ -3,6 +3,7 @@ package com.stericson.permissions.donate.listeners;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.PermissionsActivity;
 

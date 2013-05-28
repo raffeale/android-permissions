@@ -8,6 +8,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.drawable.Drawable;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.permissions.donate.Shared;
 import com.stericson.permissions.donate.domain.AndroidPackage;

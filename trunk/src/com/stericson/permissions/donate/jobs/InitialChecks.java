@@ -2,6 +2,7 @@ package com.stericson.permissions.donate.jobs;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.PermissionsActivity;

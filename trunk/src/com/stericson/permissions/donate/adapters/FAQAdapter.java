@@ -1,14 +1,13 @@
 package com.stericson.permissions.donate.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.stericson.permissions.donate.Constants;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.domain.Permissions_Fix;
 

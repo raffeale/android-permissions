@@ -1,6 +1,7 @@
 package com.stericson.permissions.donate.jobs.tasks;
 
 import android.content.pm.PackageManager;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.domain.Permission;
 import com.stericson.permissions.donate.domain.Result;
@@ -8,6 +9,7 @@ import com.stericson.permissions.donate.interfaces.PermissionsParserDelegate;
 import com.stericson.permissions.donate.jobs.LoadAllPermissions;
 import com.stericson.permissions.donate.service.DBService;
 import com.stericson.permissions.donate.service.PreferenceService;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;

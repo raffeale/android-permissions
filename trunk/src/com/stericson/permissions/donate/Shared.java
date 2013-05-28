@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.text.SpannableString;
 import android.text.util.Linkify;
 import android.widget.Toast;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.CommandCapture;
 import com.stericson.RootTools.execution.Shell;
@@ -25,7 +26,12 @@ import com.stericson.permissions.donate.interfaces.Choice;
 import com.stericson.permissions.donate.service.PreferenceService;
 import com.stericson.permissions.donate.widget.Widget;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.LineNumberReader;
 
 public class Shared {
 

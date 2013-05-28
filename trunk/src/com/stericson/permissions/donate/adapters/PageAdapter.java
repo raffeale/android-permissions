@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.PermissionsActivity;

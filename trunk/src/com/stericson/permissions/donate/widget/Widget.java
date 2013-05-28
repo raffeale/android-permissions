@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.RemoteViews;
+
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.Shared;

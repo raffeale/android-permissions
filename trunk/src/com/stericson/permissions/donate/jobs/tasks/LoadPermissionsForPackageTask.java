@@ -2,11 +2,13 @@ package com.stericson.permissions.donate.jobs.tasks;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.domain.Permission;
 import com.stericson.permissions.donate.domain.Result;
 import com.stericson.permissions.donate.interfaces.PermissionsParserDelegate;
 import com.stericson.permissions.donate.jobs.LoadPermissionsForPackage;
+
 import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayList;

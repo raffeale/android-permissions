@@ -1,6 +1,7 @@
 package com.stericson.permissions.donate;
 
 import android.view.View;
+
 import com.stericson.permissions.donate.domain.AndroidPackage;
 import com.stericson.permissions.donate.domain.Permission;
 

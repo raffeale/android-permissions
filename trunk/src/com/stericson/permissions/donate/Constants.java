@@ -1,6 +1,7 @@
 package com.stericson.permissions.donate;
 
 import android.app.ProgressDialog;
+
 import com.stericson.RootTools.RootTools;
 
 public class Constants {

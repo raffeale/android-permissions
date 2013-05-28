@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.App;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.domain.JobResult;

@@ -2,6 +2,7 @@ package com.stericson.permissions.donate.jobs;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+
 import com.stericson.RootTools.RootTools;
 import com.stericson.RootTools.execution.Command;
 import com.stericson.RootTools.execution.CommandCapture;

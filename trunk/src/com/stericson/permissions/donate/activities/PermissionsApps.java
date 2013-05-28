@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.stericson.permissions.donate.App;
 import com.stericson.permissions.donate.Constants;
 import com.stericson.permissions.donate.R;

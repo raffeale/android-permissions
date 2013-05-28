@@ -2,6 +2,7 @@ package com.stericson.permissions.donate.jobs;
 
 import android.content.Context;
 import android.widget.TextView;
+
 import com.stericson.permissions.donate.App;
 import com.stericson.permissions.donate.R;
 import com.stericson.permissions.donate.activities.BaseActivity;
